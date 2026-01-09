@@ -1,13 +1,17 @@
 const gridWrapper = document.querySelector(".gridWrapper");
 const resizeBtn = document.querySelector("#resizeBtn");
-gridWrapper.style.height = gridWrapper.style.width;
-let wrapperSize = +gridWrapper.getAttribute("style").split(" ")[1].slice(0, -3);
-let gridNums = 50;
+let wrapperSize = 700;
+gridWrapper.style.height = wrapperSize;
+gridWrapper.style.width = wrapperSize;
 
 function resize() { // takes gridsize, remove old grid, generate a new one
-    gridNums = +prompt();
-    destroyGrid();
-    generateGrid(gridNums);
+    let gridNums = +prompt();
+    if(!gridNums || gridNums <= 0 || gridNums > 100)
+        alert("Grid size needs to be integer between 1 to 100");
+    else{
+        destroyGrid();
+        generateGrid(gridNums);
+    }
 }
 
 resizeBtn.addEventListener("click" , resize);
@@ -21,8 +25,10 @@ function getColor() {
 }
 
 gridWrapper.addEventListener("mouseover", (e) => {
-    if(e.target.classList[0] == "grid" )
-        e.target.style.backgroundColor = getColor();
+    if(e.target.classList[0] == "grid" ){
+        if( !e.target.getAttribute("style").split(" ").includes("background-color:") )
+            e.target.style.backgroundColor = getColor();
+    }
 });
 
 function generateGrid(gridNums) {
@@ -44,4 +50,4 @@ function destroyGrid() { // remove old grid to clear space for new grid upon res
     gridWrapper.innerHTML = null;
 }
 
-    generateGrid(4)
+generateGrid(16)
