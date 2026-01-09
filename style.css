@@ -5,14 +5,23 @@
 }
 
 body { 
-    background-color: gray;
+    background-color: seagreen;
 }
 
 .gridWrapper {
     display: flex;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;   
+    background-color: white; 
 }
 
-.grid {
+.cell {
     border: 0.1px black solid;
+}
+
+#paintModeInfo {
+    color: red;
+}
+
+.selected {
+    background-color: rgb(119, 119, 243);
 }
