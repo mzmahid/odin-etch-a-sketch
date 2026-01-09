@@ -9,18 +9,10 @@ body {
 }
 
 .gridWrapper {
-    height: 700px;
-    width: 700px;
-    /* border: 1px lime solid; */
     display: flex;
-    flex-wrap: wrap;
-    align-content: flex-start;
-    
+    flex-wrap: wrap;    
 }
 
 .grid {
-    /* height: 100px;
-    width: 99.5px; */
     border: 0.1px black solid;
-    /* background-color: red; */
 }
