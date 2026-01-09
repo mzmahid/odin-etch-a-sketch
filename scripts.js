@@ -104,6 +104,7 @@ gridDiv.addEventListener("mouseover", (e) => {
 });
 
 function generateGrid(cellNums) {
+    fillCount = 0;
     currentCellNums = cellNums;
     let cellSize = gridSize / cellNums;
 
