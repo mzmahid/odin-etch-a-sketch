@@ -14,12 +14,9 @@ body {
     background-color: white; 
 }
 
-.cell {
-    border: 0.1px black solid;
-}
-
 #paintModeInfo {
     color: red;
+    background-color: lime;
 }
 
 .selected {
