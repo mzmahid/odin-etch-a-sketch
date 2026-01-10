@@ -4,24 +4,34 @@ const randomizer = document.querySelector("#randomizer");
 const resetBtn = document.querySelector("#reset");
 const paintModeInfo = document.querySelector("#paintModeInfo");
 const showGridBtn = document.querySelector("#showGrid");
+const opacityBtn = document.querySelector("#opacityProg");
 
-let randomized = false;
+let randomized = true;
+let opacityProg = true;
 let canPaint = true;
-let showGrid = true;
+let showGrid = false;
 let gridSize = 600;
 let currentCellNums = 0;
-let fillCount = 0;
 let cells = []
+let cellVisits = []
 gridDiv.style.width = gridSize + "px";
 gridDiv.style.height = gridSize + "px";
 
 function selection() {
-    if(randomized) randomizer.classList.add("selected");
-    else randomizer.classList.remove("selected");
-        if(showGrid)
+    if(randomized) 
+        randomizer.classList.add("selected");
+    else 
+        randomizer.classList.remove("selected");
+
+    if(showGrid)
         showGridBtn.classList.add("selected");
     else
         showGridBtn.classList.remove("selected");
+
+    if(opacityProg)
+        opacityBtn.classList.add("selected");
+    else
+        opacityBtn.classList.remove("selected");
 }
 
 function toggleRand() {
@@ -33,6 +43,11 @@ function toggleRand() {
 
 function toggleGridLine() {
     showGrid = !showGrid;
+    selection();
+}
+
+function toggleOpacityProg()  {
+    opacityProg = !opacityProg;
     selection();
 }
 
@@ -52,6 +67,25 @@ function resetGrid() {
     generateGrid(currentCellNums);
 }
 
+opacityBtn.addEventListener("click", () => {
+    toggleOpacityProg();
+    for(let i = 0 ; i < cells.length ; i++ ) {
+        if(cells[i].style.backgroundColor){
+            continue;
+        }
+        else{
+            if(opacityProg)
+                cells[i].style.opacity = 0.1;
+            else
+                cells[i].style.opacity = 1.0;
+        }
+
+        //     cells[i].style.border = "0.1px black solid";
+        // else 
+        //     cells[i].style.border = "0px";
+    }
+})
+
 showGridBtn.addEventListener("click", () => {
     toggleGridLine();
     for(let i = 0 ; i < cells.length ; i++ ) {
@@ -70,7 +104,7 @@ document.addEventListener("keypress", (e) => {
 })
 
 resetBtn.addEventListener("click", () => {
-    return resetGrid()
+    return resetGrid();
 });
 randomizer.addEventListener("click", toggleRand);
 
@@ -102,13 +136,11 @@ function getColor() {
 
 gridDiv.addEventListener("mouseover", (e) => {
     if(canPaint){
+        let opacity = parseFloat(e.target.style.opacity) + 0.1;
+        opacity = Math.min(opacity, 1.0);
+        e.target.style.opacity = opacity;
         if(e.target.classList[0] == "cell" ){
-            // the if state below prevents filling over existing filled cell.
-            // if( !e.target.getAttribute("style").split(" ").includes("background-color:") ){
             e.target.style.backgroundColor = getColor();
-            fillCount++;
-            e.target.style.opacity = (fillCount / 10);
-            // }
         }
     }
 });
@@ -125,9 +157,9 @@ function generateGrid(cellNums) {
         if(showGrid){
             newCell.style.border = " 0.1px black solid";
         }
-        // else
         newCell.style.width = cellSize + "px";
         newCell.style.height = cellSize + "px";
+        newCell.style.opacity = (opacityProg) ? 0.1 : 1;
 
         //add a single grid to inside the wrapper
         gridDiv.appendChild(newCell);
