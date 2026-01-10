@@ -13,7 +13,6 @@ let showGrid = false;
 let gridSize = 600;
 let currentCellNums = 0;
 let cells = []
-let cellVisits = []
 gridDiv.style.width = gridSize + "px";
 gridDiv.style.height = gridSize + "px";
 
@@ -35,7 +34,6 @@ function selection() {
 }
 
 function toggleRand() {
-    fillCount = 0;
     randomized = !randomized;
     selection();
 
@@ -62,7 +60,6 @@ function togglePaint() {
 }
 
 function resetGrid() {
-    fillCount = 0;
     destroyGrid();
     generateGrid(currentCellNums);
 }
@@ -146,7 +143,6 @@ gridDiv.addEventListener("mouseover", (e) => {
 });
 
 function generateGrid(cellNums) {
-    fillCount = 0;
     currentCellNums = cellNums;
     let cellSize = gridSize / cellNums;
 
@@ -169,7 +165,8 @@ function generateGrid(cellNums) {
 }
 
 function destroyGrid() { // remove old grid to clear space for new grid upon resize
-    gridDiv.innerHTML = null;
+    gridDiv.innerHTML = "";
+    cells = [];
 }
 
 generateGrid(16)
