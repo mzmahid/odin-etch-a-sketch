@@ -6,8 +6,8 @@ const paintModeInfo = document.querySelector("#paintModeInfo");
 const showGridBtn = document.querySelector("#showGrid");
 const opacityBtn = document.querySelector("#opacityProg");
 
-let randomized = true;
-let opacityProg = true;
+let randomized = false;
+let opacityProg = false;
 let canPaint = true;
 let showGrid = false;
 let gridSize = 600;
@@ -66,21 +66,7 @@ function resetGrid() {
 
 opacityBtn.addEventListener("click", () => {
     toggleOpacityProg();
-    for(let i = 0 ; i < cells.length ; i++ ) {
-        if(cells[i].style.backgroundColor){
-            continue;
-        }
-        else{
-            if(opacityProg)
-                cells[i].style.opacity = 0.1;
-            else
-                cells[i].style.opacity = 1.0;
-        }
-
-        //     cells[i].style.border = "0.1px black solid";
-        // else 
-        //     cells[i].style.border = "0px";
-    }
+    resetGrid();
 })
 
 showGridBtn.addEventListener("click", () => {
